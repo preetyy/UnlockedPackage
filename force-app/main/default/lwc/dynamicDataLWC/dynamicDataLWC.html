@@ -1,0 +1,86 @@
+<!-- sldsValidatorIgnore -->
+<template>
+  <div>
+    <div if:true={showButton}>
+      <lightning-button
+        label="Show Data"
+        name="ShowData"
+        variant="Brand"
+        style="margin-top: 15px"
+        onclick={handleShowData}
+      ></lightning-button>
+    </div>
+    <div class="slds-grid slds-gutters">
+      <div class="slds-col">
+        <lightning-combobox
+          name="objectType"
+          onchange={onObjectTypeChange}
+          options={objectTypeList}
+          placeholder="Object Type"
+        >
+        </lightning-combobox>
+      </div>
+      <div class="slds-col">
+        <lightning-combobox
+          name="objectList"
+          onchange={onObjectChange}
+          options={objectList}
+          placeholder="Select Object"
+        >
+        </lightning-combobox>
+      </div>
+    </div>
+  </div>
+  <div style="padding: 10px">
+    <div
+      if:true={showFields}
+      class="slds-card slds-scrollable_y"
+      style="padding: 10px; height: 10rem; width: 62rem"
+    >
+      <lightning-checkbox-group
+        name="SelectFields"
+        label="Select Fields"
+        options={fieldsList}
+        value={fieldsList}
+        onchange={handleFieldChange}
+      ></lightning-checkbox-group>
+    </div>
+    <div class="slds-col slds-col slds-size_3-of-12">
+      <lightning-input
+        type="search"
+        onchange={handleKeyChange}
+        class="slds-m-bottom_small"
+        label="Search"
+        value={searchKey}
+      >
+      </lightning-input>
+    </div>
+    <div if:true={showSendEmailButton}>
+      <lightning-button
+        variant="Brand"
+        name="sendEmail"
+        label="Send Email"
+        title="Send Email"
+        onclick={getSelectedRec}
+        slot="actions"
+      >
+      </lightning-button>
+    </div>
+  </div>
+
+  <div
+    class="slds-col slds-size_9-of-12 slds-scrollable_y"
+    style="height: 20rem"
+    if:true={showButton}
+  >
+    <lightning-datatable
+      key-field="id"
+      columns={columnsMap}
+      data={allRecordsOfSelectedObject}
+      show-row-number-column="true"
+      onrowaction={handleRowAction}
+      row-actions={actions}
+    >
+    </lightning-datatable>
+  </div>
+</template>
